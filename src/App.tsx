@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Home from '@/components-app/Home';
 import Movimientos from '@/components-app/Movimientos';
 import Estadisticas from '@/components-app/Estadisticas';
+import Perfil from '@/components-app/Perfil';
 
 /*
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/movimientos" element={<Movimientos />} />
         <Route path="/estadisticas" element={<Estadisticas />} />
+        <Route path="/perfil" element={<Perfil />} />
         <Route path="/" element={<Navigate to="/home" replace />} />
       </Routes>
     </Router>

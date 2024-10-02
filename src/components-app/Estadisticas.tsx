@@ -97,7 +97,7 @@ export default function Estadisticas() {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Configuración</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/perfil')}>Configuración</DropdownMenuItem>
                 <DropdownMenuItem>Soporte</DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Cerrar sesión</DropdownMenuItem>
