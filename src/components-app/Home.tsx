@@ -122,19 +122,15 @@ export default function Home() {
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t">
         <div className="flex justify-around p-2">
           <Button variant="ghost" className="flex flex-col items-center" onClick={() => navigate('/home')}>
-            <HomeIcon className="h-6 w-6" />
             <span className="text-xs mt-1">Inicio</span>
           </Button>
           <Button variant="ghost" className="flex flex-col items-center" onClick={() => navigate('/movimientos')}>
-            <WalletIcon className="h-6 w-6" />
             <span className="text-xs mt-1">Movimientos</span>
           </Button>
           <Button variant="ghost" className="flex flex-col items-center" onClick={() => navigate('/estadisticas')}>
-            <LineChartIcon className="h-6 w-6" />
             <span className="text-xs mt-1">Estadísticas</span>
           </Button>
           <Button variant="ghost" className="flex flex-col items-center">
-            <CircleUserIcon className="h-6 w-6" />
             <span className="text-xs mt-1">Perfil</span>
           </Button>
         </div>
