@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 //import { RootState } from './store';
 import Home from '@/components-app/Home';
 import Movimientos from '@/components-app/Movimientos';
+import Estadisticas from '@/components-app/Estadisticas';
 
 /*
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/movimientos" element={<Movimientos />} />
+        <Route path="/estadisticas" element={<Estadisticas />} />
         <Route path="/" element={<Navigate to="/home" replace />} />
       </Routes>
     </Router>
