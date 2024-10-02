@@ -1,0 +1,180 @@
+import { useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Card, CardContent } from "@/components/ui/card"
+import { ArrowDownIcon, ArrowUpIcon, ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react"
+import { DatePickerWithRange } from "@/components/ui/date-picker-with-range";
+import { DateRange } from "react-day-picker"
+import { parseISO, isWithinInterval } from "date-fns"
+
+// Simulación de datos de transacciones
+const transactionsData = [
+  { id: 1, type: "ingreso", description: "Depósito de salario", amount: 2500, date: "2023-05-01" },
+  { id: 2, type: "gasto", description: "Compra en supermercado", amount: 150.75, date: "2023-05-03" },
+  { id: 3, type: "ingreso", description: "Reembolso", amount: 50, date: "2023-05-05" },
+  { id: 4, type: "gasto", description: "Pago de alquiler", amount: 1000, date: "2023-05-07" },
+  { id: 5, type: "gasto", description: "Cena en restaurante", amount: 85.50, date: "2023-05-10" },
+  // ... más transacciones
+]
+
+
+
+export default function Movimientos() {
+  const [searchTerm, setSearchTerm] = useState("")
+  const [typeFilter, setTypeFilter] = useState("todos")
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined)
+  const [sortBy, setSortBy] = useState("date")
+  const [currentPage, setCurrentPage] = useState(1)
+  const transactionsPerPage = 5
+
+  // Filtrar y ordenar transacciones
+  const filteredTransactions = transactionsData
+  .filter(transaction => {
+    const transactionDate = parseISO(transaction.date)
+    const isInDateRange = dateRange && dateRange.from && dateRange.to
+      ? isWithinInterval(transactionDate, { start: dateRange.from, end: dateRange.to })
+      : true
+
+    return (
+      (searchTerm === "" || 
+        transaction.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        transaction.amount.toString().includes(searchTerm)) &&
+      (typeFilter === "todos" || transaction.type === typeFilter) &&
+      isInDateRange
+    )
+  })
+  .sort((a, b) => {
+    if (sortBy === "date") {
+      return new Date(b.date).getTime() - new Date(a.date).getTime()
+    } else {
+      return b.amount - a.amount
+    }
+  })
+
+  // Calcular páginas
+  const totalPages = Math.ceil(filteredTransactions.length / transactionsPerPage)
+  const indexOfLastTransaction = currentPage * transactionsPerPage
+  const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage
+  const currentTransactions = filteredTransactions.slice(indexOfFirstTransaction, indexOfLastTransaction)
+
+  // Calcular totales
+  const totalIngresos = filteredTransactions.reduce((sum, transaction) => 
+    transaction.type === "ingreso" ? sum + transaction.amount : sum, 0
+  )
+  const totalGastos = filteredTransactions.reduce((sum, transaction) => 
+    transaction.type === "gasto" ? sum + transaction.amount : sum, 0
+  )
+
+  return (
+    <div className="container mx-auto p-4 max-w-4xl">
+      <h1 className="text-2xl font-bold mb-6">Detalle de Transacciones</h1>
+      
+      {/* Barra de búsqueda */}
+      <div className="flex mb-4">
+        <Input
+          type="text"
+          placeholder="Buscar transacciones..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="flex-grow mr-2"
+        />
+        <Button variant="outline">
+          <SearchIcon className="h-4 w-4" />
+        </Button>
+      </div>
+
+      {/* Filtros */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <Select value={typeFilter} onValueChange={setTypeFilter}>
+          <SelectTrigger>
+            <SelectValue placeholder="Tipo de transacción" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="todos">Todos</SelectItem>
+            <SelectItem value="ingreso">Ingresos</SelectItem>
+            <SelectItem value="gasto">Gastos</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <DatePickerWithRange date={dateRange} setDate={setDateRange} />
+
+        <Select value={sortBy} onValueChange={setSortBy}>
+          <SelectTrigger>
+            <SelectValue placeholder="Ordenar por" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="date">Fecha</SelectItem>
+            <SelectItem value="amount">Monto</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Resumen */}
+      <Card className="mb-6">
+        <CardContent className="p-4">
+          <h2 className="text-lg font-semibold mb-2">Resumen</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-sm text-gray-500">Total Ingresos</p>
+              <p className="text-lg font-bold text-green-600">${totalIngresos.toFixed(2)}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Total Gastos</p>
+              <p className="text-lg font-bold text-red-600">${totalGastos.toFixed(2)}</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Lista de transacciones */}
+      <div className="space-y-4 mb-6">
+        {currentTransactions.map((transaction) => (
+          <Card key={transaction.id}>
+            <CardContent className="flex items-center p-4">
+              <div className={`rounded-full p-2 mr-4 ${
+                transaction.type === "ingreso" ? "bg-green-100" : "bg-red-100"
+              }`}>
+                {transaction.type === "ingreso" ? (
+                  <ArrowDownIcon className="h-6 w-6 text-green-600" />
+                ) : (
+                  <ArrowUpIcon className="h-6 w-6 text-red-600" />
+                )}
+              </div>
+              <div className="flex-grow">
+                <p className="font-semibold">{transaction.description}</p>
+                <p className="text-sm text-gray-500">{transaction.date}</p>
+              </div>
+              <p className={`font-semibold ${
+                transaction.type === "ingreso" ? "text-green-600" : "text-red-600"
+              }`}>
+                {transaction.type === "ingreso" ? "+" : "-"}${transaction.amount.toFixed(2)}
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Paginación */}
+      <div className="flex justify-between items-center">
+        <Button
+          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          variant="outline"
+        >
+          <ChevronLeftIcon className="h-4 w-4 mr-2" />
+          Anterior
+        </Button>
+        <span>Página {currentPage} de {totalPages}</span>
+        <Button
+          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+          variant="outline"
+        >
+          Siguiente
+          <ChevronRightIcon className="h-4 w-4 ml-2" />
+        </Button>
+      </div>
+    </div>
+  )
+}
