@@ -2,29 +2,16 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+
 import { 
   HomeIcon, 
   CreditCardIcon, 
-  ArrowRightLeftIcon, 
-  GiftIcon, 
   PlusIcon, 
   ArrowUpIcon, 
-  MoreHorizontalIcon, 
   EyeIcon, 
   EyeOffIcon,
-  SearchIcon,
   CircleUserIcon,
   ArrowDownIcon,
-  QrCodeIcon,
   LineChartIcon,
   WalletIcon
 } from "lucide-react"
