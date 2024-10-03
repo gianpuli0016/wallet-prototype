@@ -95,7 +95,7 @@ export default function Inicio() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center">
-                    <img src="src/image/argentina.png" alt="ARS" className="mr-2" height="24" width="24" />
+                    <img src="/argentina.png" alt="ARS" className="mr-2" height="24" width="24" />
                     <span className="font-semibold text-white">ARS</span>
                   </div>
                   <span className="text-gray-400">Disponible</span>
@@ -109,7 +109,7 @@ export default function Inicio() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center">
-                    <img src="src/image/estados-unidos.png" alt="USD" className="mr-2" height="24" width="24"  />
+                    <img src="/estados-unidos.png" alt="USD" className="mr-2" height="24" width="24"  />
                     <span className="font-semibold text-white">USD</span>
                   </div>
                   <span className="text-gray-400">Disponible</span>
@@ -180,10 +180,10 @@ export default function Inicio() {
           <h3 className="text-xl font-semibold mb-4">Promociones y Noticias</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { title: "Tus vacaciones ganan puntos", image: "src/image/undraw_travel_mode_re_2lxo.svg", link: "¡Empieza ahora!" },
-              { title: "40% de Descuento con tu tarjeta", image: "src/image/undraw_online_payments_re_y8f2.svg", link: "Solo con este link" },
-              { title: "Hacé rendir tu dinero más fácil", image: "src/image/undraw_mobile_analytics_twab.svg", link: "Pruébalo ahora" },
-              { title: "Pagá tus cuentas y servicios", image: "src/image/undraw_mobile_payments_re_7udl.svg", link: "Pruébalo ahora" },
+              { title: "Tus vacaciones ganan puntos", image: "/undraw_travel_mode_re_2lxo.svg", link: "¡Empieza ahora!" },
+              { title: "40% de Descuento con tu tarjeta", image: "/undraw_online_payments_re_y8f2.svg", link: "Solo con este link" },
+              { title: "Hacé rendir tu dinero más fácil", image: "/undraw_mobile_analytics_twab.svg", link: "Pruébalo ahora" },
+              { title: "Pagá tus cuentas y servicios", image: "/undraw_mobile_payments_re_7udl.svg", link: "Pruébalo ahora" },
             ].map((promo, index) => (
               <Card key={index} className="bg-transparent hover:bg-gray-800 transition-colors duration-200 border-none text-white">
                 <CardContent className="p-4">
