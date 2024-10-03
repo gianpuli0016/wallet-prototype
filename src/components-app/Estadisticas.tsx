@@ -14,7 +14,7 @@ import {
   TrendingDownIcon,
   DollarSignIcon,
 } from "lucide-react"
-import { Bar, Pie, Line, Doughnut } from 'react-chartjs-2'
+import { Bar, Line, Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend, ArcElement } from 'chart.js'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend, ArcElement)
