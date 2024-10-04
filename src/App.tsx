@@ -5,6 +5,7 @@ import Home from '@/components-app/Home';
 import Movimientos from '@/components-app/Movimientos';
 import Estadisticas from '@/components-app/Estadisticas';
 import Perfil from '@/components-app/Perfil';
+import Tarjetas from '@/components-app/Tarjetas';
 
 /*
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/movimientos" element={<Movimientos />} />
         <Route path="/estadisticas" element={<Estadisticas />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/tarjetas" element={<Tarjetas />} />
         <Route path="/" element={<Navigate to="/home" replace />} />
       </Routes>
     </Router>

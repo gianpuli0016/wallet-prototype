@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -18,47 +18,53 @@ import {
 
 export default function Inicio() {
   const navigate = useNavigate()
-  const [balanceVisible, setBalanceVisible] = React.useState(true)
+  const [balanceVisible, setBalanceVisible] = useState(true)
+
+  const SidebarContent = () => (
+    <>
+      <img src="/logoTDKpago.png" alt="TdkPago" className="h-8 mb-6" />
+      <nav className="space-y-4">
+        <Button variant="ghost" className="w-full justify-start text-white" onClick={() => navigate('/home')}>
+          <HomeIcon className="mr-2 h-5 w-5" />
+          Inicio
+        </Button>
+        <Button variant="ghost" className="w-full justify-start text-white" onClick={() => navigate('/movimientos')}>
+          <WalletIcon className="mr-2 h-5 w-5" />
+          Movimientos
+        </Button>
+        <Button variant="ghost" className="w-full justify-start text-white" onClick={() => navigate('/estadisticas')}>
+          <LineChartIcon className="mr-2 h-5 w-5" />
+          Estadísticas
+        </Button>
+        <Button variant="ghost" className="w-full justify-start text-white" onClick={() => navigate('/tarjetas')}>
+          <CreditCardIcon className="mr-2 h-5 w-5" />
+          Tarjetas
+        </Button>
+      </nav>
+    </>
+  )
 
   return (
-    <div className="flex bg-gray-900 text-white">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 p-6 fixed h-screen overflow-y-auto hidden md:block">
-        <h1 className="text-2xl font-bold mb-10">C21</h1>
-        <nav className="space-y-6">
-          <Button variant="ghost" className="w-full justify-start" onClick={() => navigate('/home')}>
-            <HomeIcon className="mr-2 h-5 w-5" />
-            Inicio
-          </Button>
-          <Button variant="ghost" className="w-full justify-start" onClick={() => navigate('/movimientos')}>
-            <WalletIcon className="mr-2 h-5 w-5" />
-            Movimientos
-          </Button>
-          <Button variant="ghost" className="w-full justify-start" onClick={() => navigate('/estadisticas')}>
-            <LineChartIcon className="mr-2 h-5 w-5" />
-            Estadísticas
-          </Button>
-          <Button variant="ghost" className="w-full justify-start">
-            <CreditCardIcon className="mr-2 h-5 w-5" />
-            Tarjetas
-          </Button>
-        </nav>
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-900 text-white">
+      {/* Sidebar for larger screens */}
+      <aside className="w-64 bg-gray-800 p-6 hidden md:block md:fixed md:h-screen md:overflow-y-auto">
+        <SidebarContent />
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 ml-64 md:ml-64 overflow-y-auto min-h-screen">
-        <div className="max-w-4xl mx-auto">
+      <main className="flex-1 p-4 md:p-6 md:ml-64 overflow-y-auto min-h-screen w-full">
+        <div className="max-w-4xl mx-auto lg:max-w-3xl xl:max-w-10xl">
           {/* Header for mobile */}
           <header className="md:hidden flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold">C21</h1>
+            <img src="/logoTDKpago.png" alt="TdkPago" className="h-8 " />
             <Button variant="ghost" size="icon">
               <CircleUserIcon className="h-6 w-6" />
             </Button>
           </header>
 
           {/* User Level */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+            <div className="flex items-center space-x-4 mb-4 sm:mb-0">
               <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-xl font-bold">
                 GP
               </div>
@@ -68,7 +74,7 @@ export default function Inicio() {
               </div>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setBalanceVisible(!balanceVisible)}>
-              {balanceVisible ? <EyeOffIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
+              {balanceVisible ? <EyeOffIcon className="mb-0 h-5 w-5" /> : <EyeIcon className="mb-0 h-5 w-5" />}
             </Button>
           </div>
 
@@ -77,7 +83,7 @@ export default function Inicio() {
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold mb-2 text-white">Saldo Total</h3>
               <p className="text-4xl font-bold text-white">
-                {balanceVisible ? "$1,234.56" : "••••••"}
+                {balanceVisible ? "$33,459.35" : "••••••"}
               </p>
             </CardContent>
           </Card>
@@ -85,9 +91,9 @@ export default function Inicio() {
           {/* Accounts */}
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-xl font-semibold">Cuentas</h3>
-            <Button variant="outline" size="sm" className="bg-transparent hover:bg-transparent text-white border-none">
-              <PlusIcon className="h-4 w-4 mr-2" />
-              Añadir
+            <Button variant="outline" size="sm" className="bg-transparent hover:bg-gray-800 transition-colors duration-200 text-white border-none">
+              <PlusIcon className="h-4 w-4 mr-2 text-white" />
+              <span className="text-sm text-white">Añadir</span>
             </Button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
@@ -109,8 +115,8 @@ export default function Inicio() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center">
-                    <img src="/estados-unidos.png" alt="USD" className="mr-2" height="24" width="24"  />
-                    <span className="font-semibold text-white">USD</span>
+                    <img src="/porcelana.png" alt="CNY" className="mr-2" height="24" width="24"  />
+                    <span className="font-semibold text-white">CNY</span>
                   </div>
                   <span className="text-gray-400">Disponible</span>
                 </div>
@@ -122,7 +128,8 @@ export default function Inicio() {
           </div>
 
           {/* Quick Actions */}
-          <div className="flex space-x-4 mb-10">
+         
+          <div className="flex justify-evenly mb-10">
             <div className="flex flex-col items-center">
               <Button className="flex items-center justify-center rounded-full w-12 h-12 bg-teal-500 hover:bg-teal-600">
                 <ArrowDownIcon className="h-6 w-6 text-white" />
@@ -214,9 +221,9 @@ export default function Inicio() {
             
             <span className="text-xs mt-1">Estadísticas</span>
           </Button>
-          <Button variant="ghost" className="flex flex-col items-center">
+          <Button variant="ghost" className="flex flex-col items-center" onClick={() => navigate('/tarjetas')}>
             
-            <span className="text-xs mt-1">Perfil</span>
+            <span className="text-xs mt-1">Tarjetas</span>
           </Button>
         </div>
       </nav>
